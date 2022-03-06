@@ -1,0 +1,271 @@
+---
+title: "Wind of Change?"
+subtitle: State of the art and future perspectives for wind energy in Rhineland-Palatinate
+author: 
+  - Julia Geßner (220201725) - [gess1218@uni-landau.de](mailto:gess1218@uni-landau.de)
+  - Julia Gieser (217202284) - [gies3053@uni-landau.de](mailto:gies3053@uni-landau.de)
+  - Eva Zamrazil (220201320) - [zamr8995@uni-landau.de](mailto:zamr8995@uni-landau.de)
+date: March 5, 2022
+output:
+  html_document: default
+  df_print: paged
+  self_contained: yes
+always_allow_html: yes
+header-includes: 
+  - \renewcommand{\and}{\\}
+  - \usepackage{titling}
+  - \setlength{\droptitle}{-0.75in}
+  - \usepackage{float}
+linestretch: 1.3
+geometry: margin=1in
+fig_caption: yes
+---
+
+<div style="text-align: justify">
+# Abstract
+In light of increasing climate change, a shift from fossil fuels to renewable energies is urgently needed. With wind energy as the most important sustainable energy source in Germany, the state of Rhineland-Palatinate has committed to an annual expansion of 500 megawatts. Here, we use an interactive map to show the current state of wind energy in this federal state to assess future expansions with regard to aspects of sustainability. More sites show to be suitable due to favorable wind exposure, minimum distances from dwellings, and separation from conservation areas. Nevertheless, regional planning often proves difficult due to arguments of bird protection, landscape aesthetics, as well as noise pollution and shading of neighboring residential areas. A common path is needed to contest the shift away from fossil fuels and harness the wind of change.
+
+# Introduction
+The extreme weather events are some of the most observable results of climate change, caused by the exacerbated use of fossil fuels in the last century. International agreements work synergically to reduce the greenhouse gas emissions registered in 2010 by 45% until 2030 to mitigate these effects (United Nations, 2022). One of the most promising ways to reach this target goal is by using renewable energy sources. Wind energy is currently the most important source of energy for Germany, accounting for 27 % of electricity generation in 2020 (Fraunhofer ISE, 2021).  
+To reach the international target goal, the Erneuerbare-Energien-Gesetz  (EEG, engl. Renewable Energy Sources Act) in Germany had originally stated a goal of producing 71 gigawatts (GW) by 2030, but last year the new Minister of Economy Robert Habeck stated that 2% of the country’s land must be covered with wind energy turbines to reach a much-needed goal of 100 GW. This would mean an increase of 4 to 7 GW per year (Umweltbundesamt, 2021). Currently, there are over 28,000 onshore turbines with a total capacity of around 56 GW. In 2021, 484 new wind turbines with a total capacity of almost 2 GW were erected. Rhineland-Palatinate (RLP) installed 16 of these turbines (Deutsche WindGuard, 2021).  
+The recent and planned changes in wind energy policies in the federal state display compromise for improvement. The current coalition agreement established a net expansion of 500 megawatts (MW) of wind power per year (Koalitionsvertrag Rheinland-Pfalz, 2021). Smart infrastructures will be designed to provide a balance in the event of fluctuations in production or consumption through better distribution and storage of energy to further develop the energy source (Henning & Palzer, 2012). By the end of the decade, the goal is to generate all the electricity consumed from renewable energies and afterward pursue to export the surplus of energy (Koalitionsvertrag Rheinland-Pfalz, 2021). Several big changes are being implemented to reach the goals, including a) proposed changes in construction permits depending on the height of the turbine, b) solidarity pact for municipalities, and c) centralization, standardization, and simplification of approval procedures at the Struktur und Genehmigungsdirektionen (SGDs; Fachagentur Windenergie an Land, 2021; Ministerium des Innern und für Sport Rheinland-Pfalz, 2022).  
+Nonetheless, many aspects must be controlled to allow the erection of wind energy plants in RLP, including urban land use planning, building regulations, immission control, nature conservation law, and administrative procedures (Ministerium für Wirtschaft Klimaschutz Energie und Landesplanung Rheinland-Pfalz et al., 2013). The third partial update of the Landesentwicklungsprogramm IV (engl. State Development Program IV) has set the specific goal of 2% of the federal state’s land area to be set aside for wind energy use. It has also made changes that allowed for some areas, like forest areas with high wind potential, to be designated and prioritized for wind energy use. This prioritization could exclude certain areas from the wind energy planning, such as nature parks, national parks, and the identified core zones of UNESCO World Heritage Sites (Ministerium für Wirtschaft, Klimaschutz, Energie und Landesplanung Rheinland-Pfalz, 2013; Ministerium des Innern und für Sport Rheinland-Pfalz, 2022). Additionally, areas of high concern due to immission, and drinking water protection must be studied before the approval can be granted (Fachagentur Windenergie an Land, 2021). According to changes proposed in the coalition agreement, the distance of new turbines from residential areas is at least 900 m. For the re-powering of turbines, the minimum distances can be reduced 20% and more focus will be given to higher output rather than number of wind turbines. The assessment of the minimum building distances will be carried out from the center of the mast base of the wind turbine so the space can be optimized, and the goals can be reached. Even in forests, wind turbines will be installed in areas of mixed hardwood older than 100 years and a stand area of more than 10 hectares should be excluded (Koalitionsvertrag Rheinland-Pfalz, 2021).  
+Despite these changes in state policies, it is still argued that the issue of sufficient provision of usable area has not been resolved (Umweltbundesamt, 2021). This leads to the question of whether the federal state will be able to reach the 500 MW yearly goal they have set and if this is viable within the pillars of sustainability. To answer this question this paper shows the current location of wind turbines and wind speed data, to show the areas where there is a good exposure to natural wind currents to effectively harvest energy. The paper strives to initiate a discussion about the further potential in the state and whether the goals proposed by RLP are achievable.
+
+# Data and Methodology
+To explore the current state of wind energy in RLP an interactive map was set up in R version 4.1.1 (R Core Team, 2021) using the *leafletR* package (Graul, 2016). Regarding the coordinate reference system, WGS84 with EPSG4326 was adopted for all layers. OpenStreetMap® was chosen as the default base map as it depicts most detailed the local infrastructure in the selected region. Optionally, switching to OpenTopoMap® provides information on the topography as an important factor for the occurrence of wind currents as well as wind speed and therefore also the evaluation of suitable turbine sites. As a fixed element, the county border of RLP was integrated using *rgdal* package (Bivand et al., 2021) in form of a shape file, which is available for free use from Esri Deutschland (2019) and marks the area of interest for this project.  
+Two overlays were added from the *Global Wind Atlas* as tif-files, a service owned and operated by the Technical University of Denmark (2019). With a resolution of 250 meters, they visualize the mean annual wind speed [m/s] measured 100 and 150 meters above the ground for the period from 2008 to 2017. Thereby, the layer depicting the wind speed in 100 meter height reflects best the conditions for currently operating turbines with an average hub height of 112.1 meter, while the wind speed in 150 meter height helps evaluating the wind conditions for planned turbines with an average hub height of 148.5 meters. Overall, the layers serve as an indication where suitable wind speeds are available as a prerequisite for the cost-effective operation of wind turbines.
+In addition, open source data on wind park locations and wind turbine characteristics was retrieved from *Marktstammdatenregister* of the Bundesnetzagentur für Elektrizität, Gas, Telekommunikation, Post und Eisenbahnen (2020; engl. Federal Network Agency for Electricity, Gas, Telecommunications, Post and Railway). This is an official register where market players in the energy sector must register themselves and the master data of their installations (e.g. location details, technical data for installations). More specifically, all players who perform a function on the energy market are obligated to register, as are all generation facilities that are connected to the high-voltage grid in the case of electricity or to the transmission grid in the case of gas. Excluded were 14 cases whose geographical data were incomplete and 41 cases that were registered by companies in RLP but where the turbines were not located within the state's borders. Custom-made turbine icons were integrated with *addLegendImage()* function from the *leaflegend* package (Roh & Rodrigo Basa, 2022) to mark the wind turbine location, with different colors reflecting the current operational status (i.e., if they are in operation, planned or shut down). Through the usage of *popupTable* function from the *leafpop* package (Appelhans & Detsch, 2021), one is able to retrieve further information on the characteristics of the wind turbine by clicking on the respective icon.
+
+# Results and Discussion
+For RLP, a total of 1810 wind turbines are indicated by the Bundesnetzagentur (2020), including 21 shut down, 84 planned and 1705 currently operating turbines. Graphical inspection reveals that the state has many areas with average wind speeds between 2 to 6 m/s and little that is above 6 m/s in 100 meter height. Compared with the north and northwest of Germany, therefore, the picture is rather mixed with regard to the natural conditions for the production of wind energy. Due to their topography, areas around the low mountain ranges of Hunsrück and Eifel depict the highest average wind speeds in the federal state. Thus, the target of minimal wind speeds necessary for the operation of turbines is met, but optimal speeds with more than 9 m/s are rare with the currently average hub height of 112.1 meter. Over time, both turbine outputs and hub heights have increased, and so the average hub height of planned turbines is with 148.5 m approximately 32% higher than those currently operating. By activating the overlayer with wind speeds in 150 meter height more areas display suitable natural conditions for future turbine installations.  
+Technically it has to be noted that when both wind maps are selected, only the one in 150 meter height will be displayed as it is the last one called in R. However, the leaflet function *addLayersControl* is not enabling overlay groups in a single choice format. The alternative option of inserting the wind maps as base groups would have posed further problems: (1) the entire world map was not freely available and thus (2) only Germany with a white world map around could have been displayed. Additionally, sometimes the Open Street Map indicates turbines where the data provided by the Bundesnetzagentur (2020) does not list any installations. One possibility is that these are consumer installations that are not subject to registration because they are not connected to the high-voltage grid and do not serve to supply third parties. Another explanation could be a potential data gap or error, but the usage of data from the Bundesnetzagentur (2020) is the best approximation of the current state of wind energy through the registration obligation of power generation units in Germany.
+```{r include=FALSE}
+## Set Working Directory
+setwd("E:/Uni Landau/Master/3. Semester/MOD3a GIS Application/Project")
+
+## Required packages
+library(dplyr)
+library(rgdal)
+library(leaflet)
+library(leafpop)
+library(leaflegend)
+library(raster)
+library(mapview)
+
+## Read in turbine data
+windenergy <- read.table("Stromerzeuger.csv",                                     
+                          header = TRUE, dec = ",", sep = ";", encoding="UTF-8")
+
+## Extract only useful columns for map
+data <- windenergy[c("Koordinate..Längengrad..WGS84.", 
+                    "Koordinate..Breitengrad..WGS84.",
+                    "Name.des.Windparks",
+                    "Ort", 
+                    "Inbetriebnahmedatum.der.Einheit", 
+                    "Bruttoleistung.der.Einheit", 
+                    "Betriebs.Status",
+                    "Name.des.Anlagenbetreibers..nur.Org..", 
+                    "Nutzbare.Speicherkapazität.in.kWh", 
+                    "Typenbezeichnung", 
+                    "Hersteller.der.Windenergieanlage",
+                    "Name.des.Anschluss.Netzbetreibers",
+                    "Nabenhöhe.der.Windenergieanlage")]
+
+## Rename headers for consistent use of English language and nicer popups
+colnames(data) <- c("long", 
+                    "lat",
+                    "Name",
+                    "Location",
+                    "Initial operation",
+                    "Output [kW]",
+                    "Status",
+                    "Operator",
+                    "Storage capacity [kWh]",
+                    "Turbine type",
+                    "Turbine producer",
+                    "Network operator",
+                    "Hub height")
+
+## Exclude rows with missing long or lat
+data <- data[complete.cases(data[ , 1:2]),]
+### 14 rows have been omitted
+
+## Exclude data points outside of Rhineland-Palatinate
+data <- data[-c(3, 58, 82, 83, 96, 100, 101, 102, 103, 143, 223, 
+                228, 230, 231, 234, 235, 291, 292, 303, 326, 512, 
+                520, 592, 792, 795, 1443, 1483, 1571, 1573, 1574, 1575,
+                1576, 1577, 1607, 1629, 1673, 1675, 1676, 1678, 1699, 1701), ]
+### 41 rows have been omitted
+
+## Read in shape file with county borders of Rhineland-Palatinate
+rlp <- readOGR("landesgrenze_rlp.shp", GDAL1_integer64_policy = TRUE)
+
+## Transform to coordinate reference system compatible with leaflet defaults
+rlp <- spTransform(rlp, CRS("+init=epsg:4326"))
+
+## Read in both .tif files for average wind speed in 100 and 150 m height
+speed100_gwa <- raster("./DEU_wind-speed_100m.tif")
+speed150_gwa <- raster("./DEU_wind-speed_150m.tif")
+
+## Specify colors for displaying the average wind speed
+pal <- colorNumeric(c("#3288bd", "#66c2a5", "#abdda4", "#e6f598", "#ffffbf", 
+                      "#fee08b", "#fdae61", "#f46d43", "#d53e4f"), 
+                    values(speed100_gwa), na.color = "transparent")
+
+
+# Create an interactive map -----------------------------------------------
+
+## customize icons (turbine icon, different colors for operational status)
+icons <- icons(
+  iconUrl = ifelse(data$Status == "In Betrieb", "turbine_black_a.png",
+              ifelse(data$Status == "In Planung", "turbine_blue1.png",
+                       "turbine_grey1.png"                           
+                     )
+                   ),
+  iconWidth = 30, iconHeight = 40,
+  iconAnchorX = 0, iconAnchorY = 0
+               )
+
+## Specify hyperrefs for data attributions
+### For the state border
+att_rlp <- paste(sep = "<br/>",
+                 "County borders ©
+                      <a href='https://opendata-esri-de.opendata.arcgis.com/datasets/esri-de-content::landesgrenze-rlp/about'>Esri Deutschland</a>")
+
+### For the windpark data
+att_turbines <- paste(sep = "<br/>",
+                      "Windpark data ©
+                      <a href='https://www.marktstammdatenregister.de/MaStR/Einheit/Einheiten/OeffentlicheEinheitenuebersicht'>Bundesnetzagentur</a>")
+
+### For the wind speed data
+att_weather <- paste(sep = "<br/>",
+                     "Weather data ©
+                     <a href='https://globalwindatlas.info/area/Germany'>Global Wind Atlas</a>")
+```
+
+```{r leaflet, echo=FALSE, out.width='100%', message=FALSE, warning=FALSE, error=FALSE, fig.cap = "*Figure 1:* Interactive map depicting wind turbines in Rhineland-Palatinate. The Open Street Map and the topography map serve as base and can be swapped, while the mean annual wind speed [m/s] in 100 and 150 meter height can be turned on and off as overlayers. Additionally, the color of the turbine icons reflects the operational status and more information about each wind turbine can be retrieved by clicking on the respective icon."}
+
+## Create map with clustered custom icons and informative labels
+leaflet(rlp
+        ) %>%
+  # Add the state borders of RLP
+  addPolygons(weight = 2, smoothFactor = 0,                         
+              opacity = 0.5, fillOpacity = 0, color = "black",
+              group = "County borders"
+              ) %>%
+  # Include the attribution for the state borders of RLP
+  addTiles(urlTemplate = "", attribution = att_rlp,               
+           group = "County borders"
+           ) %>%
+  # Add the OpenStreetMap as Base layer
+  addProviderTiles(providers$OpenStreetMap, group = "Open Street Map"      
+           ) %>%
+  # Add a topography map as Base layer
+  addProviderTiles(providers$OpenTopoMap, group = "Topography Map"                        
+                   ) %>%
+  # Include a raster image showing t he mean wind speed in 100 m height as Overlay
+  addRasterImage(round(speed100_gwa), colors = pal, opacity = 0.8, maxBytes = 2178028,
+                 group = "Wind speed 100 m",
+                 attribution = att_weather
+                 ) %>%
+  # Include a raster image showing the mean wind speed in 150 m height as Overlay
+  addRasterImage(round(speed150_gwa), colors = pal, opacity = 0.8, maxBytes = 2178028,
+                 group = "Wind speed 150 m",
+                 attribution = att_weather
+                 ) %>%
+  # Include a legend for the wind speed overlays
+  addLegend(pal = pal, values = values(speed100_gwa),
+            title = "Wind speed [m/s]",
+            position = "bottomleft",
+            group = c("Wind speed 100 m", "Wind speed 150 m")
+            ) %>%
+  # Makes that only "Wind speed 100 m" is checked by default
+  hideGroup("Wind speed 150 m"
+            ) %>%
+  # Add the windpark data and icons with informative pop-up windows
+  addMarkers(data$long, data$lat, icon=icons,                                 
+                    popup = popupTable(data,                                  
+                                       zcol = c("Name",
+                                                "Location",
+                                                "Initial operation",
+                                                "Output [kW]",
+                                                "Operator",
+                                                "Network operator"),
+                                       feature.id = FALSE,                    
+                                       row.numbers = FALSE                    
+                                        ),
+                    clusterOptions = markerClusterOptions(),                  
+                    group = "Turbines"
+             ) %>%
+  # Add a legend for the icon images
+  addLegendImage(images = c("turbine_black_a.png",                            
+                            "turbine_blue1.png",
+                            "turbine_grey1.png"),
+                 labels = c("Operating", "Planned", "Shut down"), 
+                 width = 25, height = 35,
+                 title = "Operational status",
+                 position = "bottomright"
+                 ) %>%
+  # Include the attribution for the windpark data
+  addTiles(urlTemplate = "", attribution = att_turbines, group = "Turbines"
+           ) %>%
+  # Allow changing between the different base and overlay maps
+  addLayersControl(
+    baseGroups = c("Open Street Map", "Topography Map"),
+    overlayGroups = c("Wind speed 100 m", "Wind speed 150 m"),
+    options = layersControlOptions(collapsed = FALSE)
+                   ) %>%
+  # Add a scale bar to the map
+  addScaleBar(position = "bottomright",
+              options = scaleBarOptions(imperial = FALSE)
+              ) %>%
+  # Set the initial view of the map
+  fitBounds(lng1 = min(data$long), 
+          lat1 = min(data$lat), 
+          lng2 = max(data$long), 
+          lat2 = max(data$lat))
+```
+Sustainability as defined by Hargroves & Smith (2005) cannot be taken for granted in the wind industry. Often critical voices are raised when it comes to the designation of new areas for wind power plants. Here, not only social, but also ecological and economic dimensions play a role. Regarding social aspects, regular surveys by the Agentur für Erneuerbare Energien (2021, engl. Agency for renewable energies) indicate that the acceptance for the expansion of renewable energies in Germany has been around 90% for years. However, there is a discrepancy in the people's mind between the desire for more green energy and the acceptance of construction plans within their own neighborhood. People with this contradictory attitude - often termed *Not In My Backyard* (NIMBY) - argue with various negative impacts of wind turbines. The most important of these are cast shadows, noise pollution, environmental destruction, bird strike, unreliable energy supply or high construction and installation costs, as well as an aesthetic impact on the landscape (Wolsink, 2000). Many of the arguments could already be refuted, as will also be listed below. However, social sustainability can only be achieved in the context of people's mental well-being if educational work is able to increase social acceptance and counteract the NIMBY movement.  
+To protect people from the physical and mental effects of periodic brightness fluctuations, the maximum allowable shadow flicker duration for a given site has been limited to less than 30 hours per year and 30 minutes per day (Gasch and Twele, 2013). This results in the need to shut down wind turbines at times, but it reduces the impact of wind turbines on people and increases the areas allowed for power generation. Furthermore, the concern about the ultrasound generated is unfounded. At the end of April 2021, the Federal Institute for Geosciences and Natural Resources withdrew its previously published study because a significant error in the calculation led to a 4,000 times higher infrasound, which caused uncertainty among the population (Windindustrie in Deutschland 2021; Bundesanstalt für Geowissenschaften und Rohstoffe 2021). Other studies showed that even old and "loud" turbines do not exceed a maximum sound pressure level of 65 dB(A) during the day and 50 dB(A) at night. This level of noise also prevails in average commercial areas. With the given distance rules, the noise level is reduced to 0 - 40 dB(A) in residential areas, which is equivalent to a health resort area (Umweltbundesamt 2017; Gasch and Twele, 2013). Therefore, wind turbines have little impact on the loudness or infrasound within a residential neighborhood.  
+An argument brought forth often on the ecological side is that the number of killed birds by wind turbines lies between 10,000 and 100,000 individuals each year. This number seems high at first sight, but is small compared to glass collisions with buildings (about 100 million) or road or rail traffic (about 70 million) (Erickson et al., 2005). Furthermore, observations have shown that wind turbines do not cause any disturbance to birds, as resident birds quickly become accustomed to the obstacles and learn to fly around them (Hau, 2014). Nevertheless, prior to any construction, an additional species protection assessment is conducted to demonstrate compliance with species protection regulations according to the Federal Nature Conservation Act (Rudolph et al., 2019). This is intended to prevent wind turbines from being built in areas that are home to species in need of special protection. Even though these regulations block areas otherwise suitable for wind turbines, it would not serve environmental protection to expand renewable energy at the expense of biodiversity. In this context, another point of contention is the clearing of forest areas for wind turbines. Nonetheless, looking at the wind energy reports and the wind speeds illustrated in the map, the renewable energy goals can only be achieved when taking advantage of forest areas in RLP. The areas around the Naturpark Soonwald-Nahe, Biosphärenreservat Pfälzerwald-Vosges du Nord, Nationalpark Hunsrück Hochwald, Naturpark Saar-Hunsrück, Osburger Wald and Naturpark Rhein-Westerwald can be used after the SGDs have carefully analyzed the areas. In the map it can also be observed that areas north and south of RLP still offer adequate wind speed and land availability for the erection of wind turbines. Taking the 69 MW generated by 16 new turbines in the year 2021 as a baseline and assuming the newly built turbines would have the same specifications and capacity, one can estimate that about 116 wind turbines with the total capacity of 500 MW should be built yearly from 2022 to 2030. Even so, it must be explained to the public how this will be done without affecting the flora and fauna of the parks and forests, to be accepted and ecologically viable.  
+In addition, the future economics of wind turbines should also be considered. Sustainability can only be achieved in this area if the focus is on long-term projects with low environmental impact and if laws as well as companies adapt to these goals. One of the biggest problems is the number of decommissioned wind turbines, which will continue to increase in the coming years, as the lifetime is only designed for 20 years. This time window does not necessarily have anything to do with the wear and tear of components, but results from current regulations on the subsidy period of wind turbines of the EEG (Winterhagen, 2019). To counteract this, the company Enercon, for example, builds wind turbines that are certified to have an actual service life of about 30 years (Deutsche WindGuard, 2017). They aim to motivate other companies to insist on a longer lifetime to work in a more resource-efficient way. Thereby, installation costs would be reduced in relation to the service life. Currently, for a system larger than 1,000 kilowatts (KW), prices are around 1,000 euros per KW output for planning, materials, construction, assembly, installation, and connection (Deutsche WindGuard, 2013). This results in average total costs for an onshore turbine of 3 to 3.5 million euros. However, the energy required to produce wind turbines is self-generated in about 5 months. Therefore, about 70 times as much energy is generated as is required for manufacture, use, and disposal over a 20-year lifetime (Smoucha et al., 2016). This puts some of the costs incurred into perspective.  
+Some of the new plants are nowadays built in connection with repowering, which is the replacement of small old plants with a few large and modern ones. This can save maintenance costs and relieve the environment, as the number of turbines is reduced by more than half (Böhl, 2021; Garsch and Twele, 2003). However, the dismantling of wind power plants produces various materials that must be recycled. The recycling capacities for fiber-reinforced plastics are very low in Germany, as only one company is specialized in them. This company will not be able to recycle a volume of around 70,000 tons of fiber-reinforced plastic that will be produced annually from 2024 onward (Umweltbundesamt, 2019). In addition, creating wide access to the plant for deconstruction requires clearing trees and thus a disruption of local biodiversity. Besides noise and dust pollution of the surrounding area, also microplastic particles are released in the deconstruction process (Umweltbundesamt, 2019). Therefore, it should be examined whether an extension of the operating life should be preferred over repowering to increase the sustainability of the turbines themselves. Economic sustainability can therefore only be achieved if politicians take measures and incentivize companies to make further investments and strive for innovation.
+
+# Conclusion
+As observed throughout the paper, the future perspectives for the promising wind production industry should include extending the life cycle of the turbines to increase efficiency and keep the costs more balanced than by just building new turbines. Additionally, new changes are being implemented to make wind turbines easier to coexist with and do as little damage as possible to the environment surrounding them. This is expected to promote acceptability of the turbines, which will be more important than ever if aiming to erect 116 new turbines per year in RLP. In view of the wind energy expansion of the past years, which was always far below the targeted 500 MW, additional efforts will be necessary to enable a sustainable energy supply for future generations. The biggest challenge now is finding the space to build new turbines, considering many citizens are against erecting them in forest areas. In terms of the sustainability pillars, much is already being considered in the planning and balancing of new turbine construction projects. Nevertheless, there is still a need for revision with regard to the use of materials, efficient runtime planning, as well as landscape conservation. A joint path of politicians, industry, regional planners and society is needed to contest the shift away from fossil fuels and harness the wind of change.
+
+# Bibliography
+* Agentur für Erneuerbare Energien (2021). Zustimmung für den Ausbau der Erneuerbaren Energien bleibt hoch. Pressemitteilung. [https://www.unendlich-viel-energie.de/presse/pressemitteilungen/zustimmung-fuer-den-ausbau-der-erneuerbaren-energien-bleibt-hoch](https://www.unendlich-viel-energie.de/presse/pressemitteilungen/zustimmung-fuer-den-ausbau-der-erneuerbaren-energien-bleibt-hoch), last accessed on February 22, 2022  
+* Appelhans, T. & Detsch, F. (2021). leafpop: Include Tables, Images and Graphs in Leaflet Pop-Ups. R package version 0.1.0. [https://CRAN.R-project.org/package=leafpop](https://CRAN.R-project.org/package=leafpop)  
+* Bivand, R., Keitt, T., Rowlingson, B., Pebesma, E., Sumner, M., Hijmans, R., Baston, D., Rouault, E., Warmerdam, F., Ooms, J., & Rundel, C. (2021). rgdal: Bindings for the ‘Geospatial’ Data Abstraction Library. R package version 1.5-28. [https://CRAN.R-project.org/package=rgdal](https://CRAN.R-project.org/package=leafpop)  
+* Böhl, L. (2021). Weiterbetrieb nach Förderende und Repowering. Bundesverband WindEnergie. [https://www.wind-energie.de/themen/politische-arbeit/weiterbetrieb-und-repowering/](https://www.wind-energie.de/themen/politische-arbeit/weiterbetrieb-und-repowering/), last accessed on February 20, 2022  
+* Bundesanstalt für Geowissenschaften und Rohstoffe (2021). Erklärung zum Infraschall von Windenergieanlagen. Press release, April 27, 2021. [https://www.bgr.bund.de/DE/Gemeinsames/Oeffentlichkeitsarbeit/Pressemitteilungen/BGR/bgr-2021-04-27_erklaerung-zum-infraschall-von-windenergieanlagen.htmt](https://www.bgr.bund.de/DE/Gemeinsames/Oeffentlichkeitsarbeit/Pressemitteilungen/BGR/bgr-2021-04-27_erklaerung-zum-infraschall-von-windenergieanlagen.htmt), last accessed on February 20, 2022  
+* Bundesnetzagentur für Elektrizität, Gas, Telekommunikation, Post und Eisenbahnen (2020). Markstammdatenregister: Stromerzeugungseinheiten. [https://www.marktstammdatenregister.de/MaStR/Einheit/Einheiten/OeffentlicheEinheitenuebersicht](https://www.marktstammdatenregister.de/MaStR/Einheit/Einheiten/OeffentlicheEinheitenuebersicht), last accessed on February 24, 2022  
+* Deutsche WindGuard (2013). Kostensituation der Windenergie an Land. [https://publikationen.windindustrie-in-deutschland.de/kostensituation-der-windenergie-an-land/54436234](https://publikationen.windindustrie-in-deutschland.de/kostensituation-der-windenergie-an-land/54436234), last accessed on March 4, 2022  
+* Deutsche WindGuard (2017). Perspektiven für Weiterbetrieb von Windenergieanlagen nach 2020. [https://www.windguard.de/veroeffentlichungen.html?file=files/cto_layout/img/unternehmen/veroeffentlichungen/2018/Perspektiven%20f%C3%BCr%20den%20Weiterbetrieb%20von%20WEA%20nach%202020.pdf](https://www.windguard.de/veroeffentlichungen.html?file=files/cto_layout/img/unternehmen/veroeffentlichungen/2018/Perspektiven%20f%C3%BCr%20den%20Weiterbetrieb%20von%20WEA%20nach%202020.pdf), last accessed on Marc 4, 2022
+* Deutsche WindGuard GmbH (2021). Status des Windenergiezubaus an Land in Deutschland - Jahr 2021. [https://www.wind-energie.de/fileadmin/redaktion/dokumente/publikationen-oeffentlich/themen/06-zahlen-und-fakten/Factsheet_Status_Windenergieausbau_an_Land_2021.pdf](https://www.wind-energie.de/fileadmin/redaktion/dokumente/publikationen-oeffentlich/themen/06-zahlen-und-fakten/Factsheet_Status_Windenergieausbau_an_Land_2021.pdf), last accessed on February 24, 2022  
+* Erickson, W.P., Johnson, G.D. & Young, D.P. Jr. (2005). A Summary and Comparison of Bird Mortality from Anthropogenic Causes with an Emphasis an Collisions. In: Ralph, C.J. & Rich, T.D. (Eds.). *Bird Conservation - Implementation and Integration in the Americas: Proceedings of the Third International Partners in Flight Conference*. Asilomar, California, March 20-24, 2002. General Technical Report of the U.S. Department of Agriculture, Forest Service, Pacific Southwest Research Station: 1029-1042.
+* Esri Deutschland (2019). Landesgrenzen RLP. [https://opendata-esri-de.opendata.arcgis.com/datasets/esri-de-content::landesgrenze-rlp/about](https://opendata-esri-de.opendata.arcgis.com/datasets/esri-de-content::landesgrenze-rlp/about)  
+* Fachagentur Windenergie an Land (2021). Länderinformationen zur Windenergie: Rheinland-Pfalz (RP). [https://www.fachagentur-windenergie.de/veroeffentlichungen/laenderinformationen/laenderinformationen-zur-windenergie/rheinland-pfalz/](https://www.fachagentur-windenergie.de/veroeffentlichungen/laenderinformationen/laenderinformationen-zur-windenergie/rheinland-pfalz/), last accessed on February 24, 2022  
+* Fraunhofer ISE (2021). Nettostromerzeugung in Deutschland 2020: erneuerbare Energien erstmals über 50 Prozent. [https://www.ise.fraunhofer.de/de/presse-und-medien/news/2020/nettostromerzeugungin-deutschland-2021-erneuerbare-energien-erstmals-ueber-50-prozent.html%0A](https://www.ise.fraunhofer.de/de/presse-und-medien/news/2020/nettostromerzeugungin-deutschland-2021-erneuerbare-energien-erstmals-ueber-50-prozent.html%0A), last accessed on January 16, 2022  
+* Gasch, R. & Twele, J. (2013). Windkraftanlagen: Grundlagen, Entwurf, Planung und Betrieb. Wiesbaden: Springer Verlag. 
+* Graul, C. (2016). leafletR: Interactive Web-Maps Based on the Leaflet JavaScript Library. R package version 0.4-0. [http://cran.r-project.org/package=leafletR](http://cran.r-project.org/package=leafletR)  
+* Hargroves, K. & Smith, M.H. (2005). *The Natural Advantage of Nations: Business Opportunities, Innovations and Governance in the 21st Century*. London: Earthscan.  
+* Hau, E. (2014). Windkraftanlagen: Grundlagen, Technik, Einsatz, Wirtschaftlichkeit (5. Edition). Berlin: Springer Verlag.  
+* Henning, H.-M. & Palzer, A. (2012). 100% Erneuerbare Energien für Strom und Wärme in Deutschland. Freiburg: Fraunhofer-Institut für Solare Energiesysteme ISE.  
+* Koalitionsvertrag Rheinland-Pfalz (2021). Zukunftsvertrag Rheinland-Pfalz – 2021 bis 2026: Koalition des Aufbruchs und der Zukunftschancen. [https://www.rlp.de/fileadmin/rlp-stk/pdf-Dateien/Staatskanzlei/rlp_Koalitionsvertrag2021-2026.pdf](https://www.rlp.de/fileadmin/rlp-stk/pdf-Dateien/Staatskanzlei/rlp_Koalitionsvertrag2021-2026.pdf), last accessed on Feburary 24, 2022  
+* Ministerium des Innern und für Sport Rheinland-Pfalz (2022). Dritte Teilfortschreibung LEP IV. [https://mdi.rlp.de/de/unsere-themen/landesplanung/landesentwicklungsprogramm/dritte-teilfortschreibung/](https://mdi.rlp.de/de/unsere-themen/landesplanung/landesentwicklungsprogramm/dritte-teilfortschreibung/), last accessed on January 3, 2022  
+* Ministerium für Wirtschaft, Klimaschutz, Energie und Landesplanung Rheinland-Pfalz (2013). Konkretisierung der landesweit bedeutsamen historischen Kulturlandschaften zur Festlegung, Begründung und Darstellung von Ausschlussflächen und Restriktionen für den Ausbau der Windenergienutzung ( Z 163 d ), [https://mdi.rlp.de/fileadmin/isim/Unsere_Themen/Landesplanung_Abteilung_7/Landesplanung/Konkre-tisierung_der_LahiKula_zur_Festlegung__Begruendung_und_Darstellung_von_Ausschlussflaechen_und_Restriktionen_fuer_den_Ausbau_der-_Windenergienutzung__Z_163_d_.pdf](https://mdi.rlp.de/fileadmin/isim/Unsere_Themen/Landesplanung_Abteilung_7/Landesplanung/Konkretisierung_der_LahiKula_zur_Festlegung__Begruendung_und_Darstellung_von_Ausschlussflaechen_und_Restriktionen_fuer_den_Ausbau_der_Windenergienutzung__Z_163_d_.pdf), last accessed on February 24, 2022  
+* Ministerium für Wirtschaft, Klimaschutz, Energie und Landesplanung Rheinland-Pfalz, Ministerium der Finanzen Rheinland-Pfalz, Ministerium für Umwelt, Landwirtschaft, Ernährung, Weinbau und Forsten Rheinland-Pfalz, Ministerium des Inneren für Sport und Infrastruktur Rheinland-Pfalz (2013). Hinweise für die Beurteilung der Zulässigkeit der Errichtung von Windenergieanlagen in Rheinland-Pfalz. Rundschreiben Wind 46. [https://mwvlw.rlp.de/fileadmin/mwkel/Rundschreiben_28_05_2013_.pdf](https://mwvlw.rlp.de/fileadmin/mwkel/Rundschreiben_28_05_2013_.pdf), last accessed on February 24, 2022  
+* R Core Team (2021). R: A language and environment for statistical computing. R Foundation for Statistical Computing. Vienna, Austria. [https://www.R-project.org/](https://www.R-project.org/)  
+* Roh, T. & Rodrigo Basa, R. (2022). leaflegend: Add Custom Legends to ‘leaflet’ Maps. R package version 0.6.0. [https://CRAN.R-project.org/package=leaflegend](https://CRAN.R-project.org/package=leaflegend)  
+* Rudolph, M., Plappert, M., & Vollmer, C. (2019). Technische Maßnahmen zur Minderung akzeptanzhemmendender Faktoren der Windenergienutzung an Land. Umweltbundesamt, ISSN 2363-829X.
+* Smoucha, E.A., Fitzpatrick, K., Buckingham, S., & Knox O.G.G. (2016). Life Cycle Analysis of Embodied Carbon Emissions from 14 Wind Turbines with Rated Powers between 50 Kw and 3.4 Mw. *Journal of Fundamentals of Renewable Energy and Applications, 6*(4): 1000211. [https://www.longdom.org/archive/jfra-volume-6-issue-4-year-2016.html](10.4172/2090-4541.1000211)
+* Technical University of Denmark (2019). Global Wind Atlas, Version 3.1. [https://globalwindatlas.info/about/introduction](https://globalwindatlas.info/about/introduction), last accessed on February 19, 2022
+* Umweltbundesamt (2017). Technische Anleitung zum Schutz gegen Lärm - TA Lärm. [http://www.verwaltungsvorschriften-im-internet.de/bsvwvbund_26081998_IG19980826.htm](http://www.verwaltungsvorschriften-im-internet.de/bsvwvbund_26081998_IG19980826.htm), last accessed on February 20, 2022  
+* Umweltbundesamt (2019). Zu geringe Recyclingkapazitäten für Rückbau von Windenergieanlagen - UBA-Studie betrachtet Umweltaspekte des Recyclings alter Windenergieanlagen. [https://www.umweltbundesamt.de/presse/pressemitteilungen/zu-geringe-recyclingkapazitaeten-fuer-rueckbau-von](https://www.umweltbundesamt.de/presse/pressemitteilungen/zu-geringe-recyclingkapazitaeten-fuer-rueckbau-von), last accessed on Febraury 20, 2022  
+* Umweltbundesamt (2021). Windenergie an Land. [https://www.umweltbundesamt.de/themen/klima-energie/erneuerbare-energien/windenergie-an-land#flaeche](https://www.umweltbundesamt.de/themen/klima-energie/erneuerbare-energien/windenergie-an-land#flaeche), last accessed on January 15, 2022  
+* United Nations (2022). Take urgent action to combat climate change and its impacts. New York: United Nations Statistics Division. [https://unstats.un.org/sdgs/report/2021/goal-13/.](https://unstats.un.org/sdgs/report/2021/goal-13/.), last accessed on February 9, 2022  
+* Wolsink, M. (2000). Wind power and the NIMBY-myth: institutional capacity and the limited significance of public support. *Renewable Energie, 21*(1): 49–64. [https://www.sciencedirect.com/science/article/abs/pii/S0960148199001305?via%3Dihub](10.1016/s0960-1481(99)00130-5)
+</div>
